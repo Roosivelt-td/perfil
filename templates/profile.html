@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="inicio" class="container mx-auto px-6 py-20 text-center">
+    <div class="relative w-40 h-40 mx-auto mb-8 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 p-1 animate-pulse">
+        <div class="w-full h-full rounded-full bg-gray-900 flex items-center justify-center border-4 border-white/20 overflow-hidden">
+            <!-- Reemplazar con tu foto real si la tienes, o dejar el emoji -->
+            <span class="text-6xl">👨‍💻</span>
+        </div>
+    </div>
+
+    <h1 class="text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+        {{ perfil.nombre }}
+    </h1>
+    <p class="text-2xl text-gray-300 font-light mb-6">{{ perfil.titulo }}</p>
+    <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        {{ perfil.descripcion }}
+    </p>
+</div>
+
+<section id="proyectos" class="container mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold text-center mb-16 text-blue-400">Proyectos Destacados</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for proyecto in proyectos %}
+        <div class="glass-card p-8 rounded-2xl bg-white/5 border border-white/10 hover:border-blue-500/50 hover:bg-white/10 transition-all duration-300 group">
+            <h3 class="text-2xl font-bold mb-4 text-white group-hover:text-blue-400 transition">{{ proyecto.nombre }}</h3>
+            <p class="text-gray-400 mb-6 leading-relaxed">{{ proyecto.descripcion }}</p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+                {% for tec in proyecto.tecnologias.split(',') %}
+                <span class="px-3 py-1 text-sm bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">
+                    {{ tec.strip() }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="habilidades" class="container mx-auto px-6 py-20 bg-black/20 rounded-3xl">
+    <h2 class="text-4xl font-bold text-center mb-16 text-purple-400">Habilidades Técnicas</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for categoria, skills in habilidades.items() %}
+        <div class="bg-white/5 p-6 rounded-xl border border-white/10 hover:border-purple-500/50 transition duration-300">
+            <h3 class="text-xl font-bold mb-6 text-purple-300 border-b border-white/10 pb-2">{{ categoria }}</h3>
+            <ul class="space-y-4">
+                {% for skill in skills %}
+                <li class="flex items-center justify-between group">
+                    <span class="text-gray-300 group-hover:text-white transition">{{ skill.nombre }}</span>
+                    <div class="w-24 bg-gray-700 rounded-full h-2 overflow-hidden">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style="width: {{ skill.nivel }}%"></div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="contacto" class="container mx-auto px-6 py-20 text-center">
+    <div class="max-w-2xl mx-auto bg-white/5 p-10 rounded-3xl border border-white/10 backdrop-blur-sm">
+        <h2 class="text-3xl font-bold mb-8 text-white">¿Te interesa mi perfil?</h2>
+        <p class="text-gray-400 mb-8 text-lg">{{ perfil.frase_personal }}</p>
+        <a href="mailto:roosivelt@ejemplo.com" class="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-bold hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg shadow-purple-500/30">
+            Contactar Ahora 🚀
+        </a>
+    </div>
+</section>
+{% endblock %}
